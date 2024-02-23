@@ -1,20 +1,35 @@
-
 const validateEmail = (email) => {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  };
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+};
+function switchTheme() {
+  var toggleSwitch = document.getElementById("toggleSwitch");
+  if (toggleSwitch.checked) {
+    document.documentElement.setAttribute("data-theme", "dark");
+  } else {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+}
 
-function validateRegister(name, surname, age, email, password, repassword) {
-  if ( name.value.trim().length < 3) {
+function validateRegister(
+  name,
+  surname,
+  age,
+  email,
+  username,
+  password,
+  repassword
+) {
+  if (name.value.trim().length < 3) {
     alert("Name is empty");
     name.focus();
     return false;
   }
   if (Number(name.value)) {
-    alert("Name should not be a number")
+    alert("Name should not be a number");
     name.focus();
     return false;
   }
@@ -25,23 +40,23 @@ function validateRegister(name, surname, age, email, password, repassword) {
     return false;
   }
 
-  if (!age.value.trim().length < 3) {
+  if (!age.value) {
     alert("age is empty");
     age.focus();
     return false;
   }
-  if (age.value < 0 || age.value > 150 ) {
-    alert("This age is no or too old")
+  if (age.value < 0 || age.value > 150) {
+    alert("This age is no or too old");
     age.focus();
     return false;
- }
+  }
 
   if (!Number(age.value)) {
     alert("Age need to be number");
     age.focus();
     return false;
   }
- 
+
   if (email.value.trim().length < 3) {
     alert("Email is empty");
     email.focus();
@@ -49,7 +64,7 @@ function validateRegister(name, surname, age, email, password, repassword) {
   }
 
   if (!validateEmail(email.value)) {
-    alert("Email does not match")
+    alert("Email does not match");
     email.focus();
     return false;
   }
@@ -72,21 +87,32 @@ function validateRegister(name, surname, age, email, password, repassword) {
     return false;
   }
 
- if (password.value != repassword.value) {
+  if (password.value != repassword.value) {
     alert("Password and repassword do not match");
     password.focus();
-    repassword.value = '';
+    repassword.value = "";
     return false;
- }
+  }
+
+  let users = getData();
+  if (users.length) {
+    let isExist = users.some((user) => {
+      return user.username == username.value;
+    });
+    if (isExist) {
+      alert("Bunday username mavjud");
+      return false;
+    }
+  }
 
   return true;
 }
 function getData() {
-    let data = [];
+  let data = [];
 
-    if (localStorage.getItem('users')) {
-         data = JSON.parse(localStorage.getItem('users'))        
-    }
-    return data;
+  if (localStorage.getItem("users")) {
+    data = JSON.parse(localStorage.getItem("users"));
+  }
+  return data;
 }
-export{validateRegister,getData};   
+export { validateRegister, getData, switchTheme };

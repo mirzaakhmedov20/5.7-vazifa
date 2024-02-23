@@ -1,4 +1,4 @@
-import { getData, validateRegister } from "./function";
+import { getData, validateRegister, switchTheme } from "./function.js";
 
 const button = document.getElementById("button");
 const name = document.getElementById("name");
@@ -9,6 +9,9 @@ const username = document.getElementById("username");
 const password = document.getElementById("password");
 const repassword = document.getElementById("repassword");
 const form = document.getElementById("form");
+const toggleSwitch = document.getElementById("toggleSwitch");
+
+toggleSwitch.addEventListener("change", switchTheme);
 
 button &&
   button.addEventListener("click", function (e) {
@@ -18,6 +21,7 @@ button &&
       surname,
       age,
       email,
+      username,
       password,
       repassword
     );
@@ -35,5 +39,8 @@ button &&
       users.push(user);
       localStorage.setItem("users", JSON.stringify(users));
       form.reset();
+      let index = window.location.href.search('pages');
+      let baseUrl = window.location.href.substring(0,index)
+      window.location.assign(`${baseUrl}pages/login.html`)
     }
   });
