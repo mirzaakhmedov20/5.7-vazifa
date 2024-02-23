@@ -107,6 +107,22 @@ function validateRegister(
 
   return true;
 }
+function validateLogin(  username,password) {
+  
+  if (username.value.trim().length < 4) {
+    alert("username is empty");
+    username.focus();
+    return false;
+  }
+
+  if (password.value.trim().length < 4) {
+    alert("password is empty");
+    password.focus();
+    return false;
+  }
+
+  return true;
+}
 function getData() {
   let data = [];
 
@@ -115,4 +131,4 @@ function getData() {
   }
   return data;
 }
-export { validateRegister, getData, switchTheme };
+export {validateRegister, validateLogin, getData, switchTheme };

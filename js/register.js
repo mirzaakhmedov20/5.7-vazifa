@@ -1,4 +1,4 @@
-import { getData, validateRegister, switchTheme } from "./function.js";
+import { getData, validateRegister, switchTheme, } from "./function.js";
 
 const button = document.getElementById("button");
 const name = document.getElementById("name");
